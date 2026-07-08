@@ -36,6 +36,9 @@ migrate_working_dir/
 # Server generated files
 server/.dart_tool/
 
+# Environment variables (credenciales)
+server/.env
+
 # Symbolication related
 app.*.symbols
 

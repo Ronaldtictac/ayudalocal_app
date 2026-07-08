@@ -8,11 +8,16 @@
 library;
 
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'servicio_model.dart';
 
 class ServicioService {
-  final String baseUrl = 'http://localhost:8080/servicios';
+  /// En Android emulator, localhost apunta al emulador, no al host.
+  /// Se usa 10.0.2.2 para acceder al localhost de la PC host.
+  final String baseUrl = defaultTargetPlatform == TargetPlatform.android
+      ? 'http://10.0.2.2:8080/servicios'
+      : 'http://localhost:8080/servicios';
 
   /// Obtiene la lista de todos los servicios registrados en el backend.
   ///

@@ -10,20 +10,30 @@
 /// Incluye middleware CORS para permitir peticiones desde el app Flutter.
 ///
 /// Para ejecutar: cd server && dart run main.dart
+///
+/// Variables de entorno (opcional, con valores por defecto):
+///   DB_HOST, DB_NAME, DB_USER, DB_PASS
 import 'dart:convert';
+import 'dart:io';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:postgres/postgres.dart';
 import 'package:shelf/shelf_io.dart' as io;
 
 void main() async {
-  // Conexión a la base de datos PostgreSQL
+  // Conexion a la base de datos PostgreSQL
+  // Lee de variables de entorno o usa valores por defecto
+  final dbHost = Platform.environment['DB_HOST'] ?? 'localhost';
+  final dbName = Platform.environment['DB_NAME'] ?? 'ayudalocal_db';
+  final dbUser = Platform.environment['DB_USER'] ?? 'postgres';
+  final dbPass = Platform.environment['DB_PASS'] ?? 'unaClave';
+
   final conn = await Connection.open(
     Endpoint(
-      host: 'localhost',
-      database: 'ayudalocal_db',
-      username: 'postgres',
-      password: 'unaClave',
+      host: dbHost,
+      database: dbName,
+      username: dbUser,
+      password: dbPass,
     ),
     settings: ConnectionSettings(sslMode: SslMode.disable),
   );
